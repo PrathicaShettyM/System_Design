@@ -39,6 +39,7 @@ SOLID principles are five essential `guidelines` that enhance software design, m
 4. Interface Segregation Principle 
 5. Dependency Inversion Principle 
 
+# SOLID Principles in detail
 1. `Single Responsibility Principle‍ (SRP)`
 This principle states that - A class should have only one reason to change which means every class should have a single responsibility or single job or single purpose. In other words, a class should have only one job or purpose within the software system.
 
@@ -73,7 +74,7 @@ class BreadBaker {
 ```
 
 - `GOOD CODE`: One class - one job or one responsibility
-```
+```java
 // Class for baking bread
 class BreadBaker {
     public void bakeBread() { System.out.println("Baking high-quality bread..."); }

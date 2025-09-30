@@ -1,35 +1,3 @@
-# System Design
-- System design is the `process of defining the architecture`, `components`, `modules`, `interfaces`, and `data` for a system to satisfy specified requirements. 
-- It involves creating a` blueprint` for how a software system will be built, focusing on `scalability`, `performance`, `reliability`, and `maintainability`. 
-- System design can be broadly categorized into:
-    - High-Level Design (HLD) and
-    - Low-Level Design (LLD).
-
-# High Level Design HLD
-- HLD provides a broad overview of the `system architecture`. It focuses on the system's major components, their interactions, and how they align with business requirements. 
-
-Key Aspects of HLD:
-- System architecture (e.g., microservices, monolithic, serverless).
-- Major components (e.g., databases, servers, APIs, load balancers).
-- Data flow and communication protocols between components.
-- Scalability, fault tolerance, and deployment strategies.
-- Technology stack selection (e.g., programming languages, frameworks).
-
-- Example: For a ride-sharing app, HLD would outline the user app, driver app, backend services, database, and load balancer, along with how they interact (e.g., API calls, message queues).
-
-
-# Low Level Design
-LLD focuses on the `detailed design of individual components` identified in the HLD. It provides a granular view, specifying how each module or component will be implemented, including `algorithms`, `data structures`, and `code-level details`.
-
-Key Aspects of LLD:
-- Detailed class diagrams, including methods, attributes, and relationships.
-- Algorithms and data structures for specific functionalities.
-- Database schema design (e.g., tables, relationships, indexes).
-- API endpoints with input/output specifications.
-- Error handling and logging mechanisms.
-
-- Example: For the ride-sharing app, LLD would define the database schema for user data, the algorithm for matching drivers to riders, and the implementation details of a specific API endpoint.
-
 # SOLID PRINCIPLES
 SOLID principles are five essential `guidelines` that enhance software design, making code more maintainable and scalable. They include:
 
@@ -40,14 +8,15 @@ SOLID principles are five essential `guidelines` that enhance software design, m
 5. Dependency Inversion Principle 
 
 # SOLID Principles in detail
-1. `Single Responsibility Principle‍ (SRP)`
+## 1. Single Responsibility Principle‍ (SRP)
 This principle states that - A class should have only one reason to change which means every class should have a single responsibility or single job or single purpose. In other words, a class should have only one job or purpose within the software system.
 
-🌟Why it matters:
-- Code maintainability
-- Easy debugging
+### Why it matters:
+ - Code maintainability
+ - Easy debugging
 
-- Situation: Baker managing the baking tasks and handling other tasks like serving customers, managing inventory and making breads etc - Violation of SRP
+### Situation: 
+Baker managing the baking tasks and handling other tasks like serving customers, managing inventory and making breads etc - Violation of SRP
 
 - `BAD CODE`: one class with multiple responsibilities
 ```java
@@ -117,16 +86,18 @@ class Bakery {
 }
 ```
 
-2. `Open/Closed Principle (OCP)`
+## 2. Open/Closed Principle (OCP)
 This principle states that Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification which means you should be able to extend a class behavior, without modifying it.
 
-🌟Why it matters:
+### Why it matters:
 - Prevents breaking existing code.
 - Encourages reusable components.
 
-Situation: Suppose we have a Shape class that calculates the area of different shapes. Initially, it supports only circles and rectangles. Adding a new shape, like a triangle, would require modifying the existing code.
+### Situation: 
+Suppose we have a Shape class that calculates the area of different shapes. Initially, it supports only circles and rectangles. Adding a new shape, like a triangle, would require modifying the existing code.
 
 - `BAD CODE`: this function is not closed for modifications - everytime we want to add features, the function is modified violating the OCP.
+
 ```java
 class Shape {
  private String type;
@@ -180,14 +151,15 @@ class Triangle extends Shape {
 }
 ```
 
-3. `Liskov Substitution Principle (LSP)`
+## 3. Liskov Substitution Principle (LSP)
 The principle was introduced by Barbara Liskov in 1987 and according to this principle - `Derived or child classes` `must be substitutable` for their `base or parent classes`. This principle ensures that any class that is the child of a parent class should be usable in place of its parent without any unexpected behavior.
 
-🌟 Why it matters:
+### Why it matters:
 - Ensures `reliability` when `using polymorphism`.
 - `Avoids unexpected behaviors in subclass implementations`.
 
-Situation: Vehicle class having some methods whose implementation in the child class like bicycle is not able to provide - i.e. child not usable in place of parent
+### Situation: 
+Vehicle class having some methods whose implementation in the child class like bicycle is not able to provide - i.e. child not usable in place of parent
 
 - `BAD CODE`
 ```java

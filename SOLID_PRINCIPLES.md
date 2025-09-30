@@ -165,15 +165,11 @@ Vehicle class having some methods whose implementation in the child class like b
 ```java
 // Problematic approach that violates LSP
 class Vehicle {
-    public void startEngine() {
-        // Engine starting logic
-    }
+    public void startEngine() { /* code */ }
 }
 
 class Car extends Vehicle {
-    @Override public void startEngine() {
-        // Car-specific engine starting logic
-    }
+    @Override public void startEngine() {/*code*/}
 }
 
 class Bicycle extends Vehicle {
@@ -205,16 +201,13 @@ public class Main {
 - `GOOD CODE`: child usable in place of its parent
 ```java
 abstract class Vehicle {
-    // Common vehicle behaviors
     public void move() {
         // Movement logic
     }
 }
 
 abstract class EngineVehicle extends Vehicle {
-    public void startEngine() {
-        // Engine starting logic
-    }
+    public void startEngine() {/* code */}
 }
 
 abstract class NonEngineVehicle extends Vehicle {
@@ -222,9 +215,7 @@ abstract class NonEngineVehicle extends Vehicle {
 }
 
 class Car extends EngineVehicle {
-    @Override public void startEngine() {
-        // Car-specific engine starting logic
-    }
+    @Override public void startEngine() {/*code*/ }
 }
 
 class Bicycle extends NonEngineVehicle {
@@ -244,4 +235,184 @@ public class Main {
         bicycle.move();  // Output: Movement logic
   }
 }
+```
+
+## 4. Interface Segregation Principle
+- Applies to `Interfaces` instead of classes in SOLID and it is similar to the `Single Responsibility principle`. 
+- It states that `do not force any client` to `implement an interface` which is `irrelevant to them`. 
+- You should prefer `many client interfaces` rather than one general interface and each interface should have a `specific responsibility`.
+
+### Why it matters:
+- Reduces unnecessary dependencies.
+- Simplifies implementation for specific use cases.
+
+### Situation
+All in one machine: printing, scanning, and faxing. This design presents a violation of the Interface Segregation Principle when implementing a basic printer device.
+
+- `BAD CODE`: fat interfaces
+```java
+interface Machine {
+    void print();
+    void scan();
+    void fax();
+}
+
+// the interface works for this AllInOnePrinter
+class AllInOnePrinter implements Machine {
+    @Override public void print(){/* code */}
+    @Override public void scan(){/* code */}
+    @Override public void fax(){/* code */}
+}
+
+// here problem occurs
+class BasicPrinter implements Machine {
+    @Override public void print() {/* code */}
+
+    // Problem: Basic printer can't scan!
+    @Override public void scan() {
+        throw new UnsupportedOperationException("Cannot scan");
+    }
+    // Problem: Basic printer can't fax!
+    @Override public void fax() {
+        throw new UnsupportedOperationException("Cannot fax");
+    }
+}
+```
+
+- `GOOD CODE`: specific interfaces
+```java
+// separate out the interfaces based on their responsibilites
+interface Printer {
+    void print();
+}
+
+interface Scanner {
+    void scan();
+}
+
+interface FaxMachine {
+    void fax();
+}
+
+class BasicPrinter implements Printer {
+    @Override
+    public void print() { /* code */ }
+}
+
+class AllInOnePrinter implements Printer, Scanner, FaxMachine {
+    @Override
+    public void print() {/* code */}
+
+    @Override
+    public void scan() {/* code */}
+
+    @Override
+    public void fax() {/* code */}
+}
+```
+
+## 5. Dependency Inversion Principle
+The Dependency Inversion Principle (DIP) is a principle in object-oriented design that states that High-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions.
+In simpler terms, the DIP suggests that classes should rely on abstractions (e.g., interfaces or abstract classes) rather than concrete implementations. This allows for more flexible and decoupled code, making it easier to change implementations without affecting other parts of the codebase.
+
+🌟Why it matters:
+• Promotes decoupled architecture.
+
+• Facilitates testing and maintainability.
+
+‍
+
+💭Example : 
+Consider an enterprise e-commerce system where order processing requires various types of notifications to be sent to customers, administrators, and inventory systems
+
+- `BAD CODE`: Direct dependency on the concrete classes
+```java
+class EmailNotifier {
+    public void sendEmail(String message) { /* code */ }
+}
+
+class OrderService {
+    private EmailNotifier emailNotifier;
+    private DatabaseLogger logger;
+    private InventorySystem inventory;
+
+    public OrderService() {
+        // Direct dependencies on concrete implementations:  Problematic code
+        this.emailNotifier = new EmailNotifier();
+        this.logger = new DatabaseLogger();
+        this.inventory = new InventorySystem();
+    }
+  
+    public void placeOrder(Order order) {
+        inventory.updateStock(order);
+        emailNotifier.sendEmail("Order #" + order.getId() + " placed successfully");
+        logger.logTransaction("Order placed: " + order.getId());
+    }
+}
+```
+
+- `GOOD CODE`: 
+```java
+// separate the logic as 3 interfaces
+interface NotificationService {
+  void sendNotification(String message);
+}
+
+interface LoggingService {
+  void logMessage(String message);
+  void logError(String error);
+}
+
+interface InventoryService {
+  void updateStock(Order order);
+  boolean checkAvailability(Product product);
+}
+
+class EmailNotifier implements NotificationService {
+  @Override
+  public void sendNotification(String message) {}
+}
+// similary do sms, whtsapp notifier using the same boiler plate
+
+
+class DatabaseLogger implements LoggingService {
+  @Override
+  public void logMessage(String message) { /* code */ }
+  
+  @Override
+  public void logError(String error) { /* code */ }
+}
+
+class OrderService {
+    private final NotificationService notificationService;
+    private final LoggingService loggingService;
+    private final InventoryService inventoryService;
+  
+  // Constructor injection of dependencies
+    public OrderService(NotificationService notificationService, LoggingService loggingService, InventoryService inventoryService) {
+        this.notificationService = notificationService;
+        this.loggingService = loggingService;
+        this.inventoryService = inventoryService;
+    }
+
+    public void placeOrder(Order order) {
+        try {
+            // Check inventory
+            if (inventoryService.checkAvailability(order.getProduct())) { 
+                inventoryService.updateStock(order); // Process order
+                notificationService.sendNotification("Order #" + order.getId() + " placed successfully"); // Send notification
+                loggingService.logMessage("Order processed successfully: " + order.getId()); // Log success
+            }
+        } catch (Exception e) {
+            loggingService.logError("Error processing order: " + order.getId() + " - " + e.getMessage());
+            throw e;
+        }
+    }
+}
+
+// Usage with dependency injection
+NotificationService emailNotifier = new EmailNotifier();
+LoggingService logger = new DatabaseLogger();
+InventoryService inventory = new WarehouseInventoryService();
+OrderService orderService = new OrderService(emailNotifier, logger, inventory);
 ```

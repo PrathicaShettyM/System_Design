@@ -652,7 +652,7 @@ In Java, polymorphism can be broadly classified into two main types:
 - Functions can be **overloaded by changing** the `number of arguments` or/and changing the `type of arguments`.
 
 Example : 
-1. Changing the number of arguments : 
+1. Changing the `number of arguments`: 
 ```java
 class Vehicle {
   // Method to start a vehicle with basic information
@@ -680,11 +680,9 @@ public class Main {
 }
 ```
 
-2. Changing the type of arguments :
+2. Changing the `type of arguments` :
 
-‍
-
-Java
+```java
 class Vehicle {
   // Method to start a vehicle with a string parameter
   void start(String vehicleType) {
@@ -697,7 +695,6 @@ class Vehicle {
   }
 }
 
-
 public class Main {
   public static void main(String[] args) {
     Vehicle vehicle = new Vehicle();
@@ -709,23 +706,18 @@ public class Main {
     vehicle.start(101);
   }
 }
+```
 
+### **2. Runtime (Dynamic) Polymorphism:** 
+- Runtime polymorphism occurs when the method to be executed is determined during runtime. 
+- It is achieved through `method overriding` and is closely tied to inheritance.
 
-2. Runtime (Dynamic) Polymorphism : 
-Runtime polymorphism occurs when the method to be executed is determined during runtime. It is achieved through method overriding and is closely tied to inheritance.
-
-‍
-
-Method Overriding : 
-Method overriding allows a subclass to provide a specific implementation for a method already defined in its parent class. The overridden method in the subclass has the same name, return type, and parameters as the method in the parent class.
-
-‍
+#### **Method Overriding**: 
+- Method overriding allows a subclass to provide a specific implementation for a method already defined in its parent class. 
+- The overridden method in the subclass has the same name, return type, and parameters as the method in the parent class.
 
 Example : 
-
-‍
-
-Java
+```java
 // Parent class
 class Vehicle {
   void start() {
@@ -771,9 +763,10 @@ public class Main {
     myVehicle.start(); // Output: Starting a truck
   }
 }
+```
 
-
-
+- Advantage: reuse method names (code reuse)
+- Disadvantage: complex debugging
 
 # **7. Java Keywords**
 ### **1. this** keyword

@@ -7,7 +7,7 @@ Object-Oriented Programming (OOP) is a programming paradigm that organizes code 
 |   1.    | [Classes](#1-classes)      |
 |   2.    | [Objects](#2-objects)      |
 |   3     | [Constructors](#3-constructors)
-|   4.    | Polymorphism |
+|   4.    | [Polymorphism](#4-polymorphism) |
 |   5.    | Encapsulation|
 |   6.    | Inheritance  |
 |   7.    | Java Key words|
@@ -767,6 +767,11 @@ public class Main {
 
 - Advantage: reuse method names (code reuse)
 - Disadvantage: complex debugging
+
+
+
+
+
 
 # **7. Java Keywords**
 ### **1. this** keyword

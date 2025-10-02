@@ -1,4 +1,4 @@
-# SOLID PRINCIPLES
+# **SOLID PRINCIPLES**
 SOLID principles are five essential `guidelines` that enhance software design, making code more maintainable and scalable. They include:
 
 1. Single Responsibility Principle 
@@ -7,8 +7,8 @@ SOLID principles are five essential `guidelines` that enhance software design, m
 4. Interface Segregation Principle 
 5. Dependency Inversion Principle 
 
-# SOLID Principles in detail
-## 1. Single Responsibility Principle‍ (SRP)
+# **SOLID Principles in detail**
+## **1. Single Responsibility Principle‍ (SRP)**
 This principle states that - A class should have only one reason to change which means every class should have a single responsibility or single job or single purpose. In other words, a class should have only one job or purpose within the software system.
 
 ### Why it matters:
@@ -86,7 +86,7 @@ class Bakery {
 }
 ```
 
-## 2. Open/Closed Principle (OCP)
+## **2. Open/Closed Principle (OCP)**
 This principle states that Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification which means you should be able to extend a class behavior, without modifying it.
 
 ### Why it matters:
@@ -113,7 +113,7 @@ class Shape {
 }
 ```
 
-`GOOD CODE`: use abstract class to make the "class Shape" closed to modifications and let the child classes give their own implemenation of the function in the abstract class
+`GOOD CODE`: use abstract class to make the "class Shape" closed to modifications and let the child classes extend the base class and give their own implementation of the function in the abstract class
 ```java
 abstract class Shape {
   abstract double calculateArea();
@@ -125,7 +125,7 @@ class Circle extends Shape {
     
     @Override 
     public double calculateArea() {
-    return Math.PI * radius * radius;
+        return Math.PI * radius * radius;
   }
 }
 
@@ -151,7 +151,7 @@ class Triangle extends Shape {
 }
 ```
 
-## 3. Liskov Substitution Principle (LSP)
+## **3. Liskov Substitution Principle (LSP)**
 The principle was introduced by Barbara Liskov in 1987 and according to this principle - `Derived or child classes` `must be substitutable` for their `base or parent classes`. This principle ensures that any class that is the child of a parent class should be usable in place of its parent without any unexpected behavior.
 
 ### Why it matters:
@@ -161,7 +161,7 @@ The principle was introduced by Barbara Liskov in 1987 and according to this pri
 ### Situation: 
 Vehicle class having some methods whose implementation in the child class like bicycle is not able to provide - i.e. child not usable in place of parent
 
-- `BAD CODE`
+- `BAD CODE`: child not usable in place of parent (coz child Bicycle shd not have the start engine function)
 ```java
 // Problematic approach that violates LSP
 class Vehicle {
@@ -237,7 +237,7 @@ public class Main {
 }
 ```
 
-## 4. Interface Segregation Principle
+## **4. Interface Segregation Principle**
 - Applies to `Interfaces` instead of classes in SOLID and it is similar to the `Single Responsibility principle`. 
 - It states that `do not force any client` to `implement an interface` which is `irrelevant to them`. 
 - You should prefer `many client interfaces` rather than one general interface and each interface should have a `specific responsibility`.
@@ -311,18 +311,15 @@ class AllInOnePrinter implements Printer, Scanner, FaxMachine {
 }
 ```
 
-## 5. Dependency Inversion Principle
-The Dependency Inversion Principle (DIP) is a principle in object-oriented design that states that High-level modules should not depend on low-level modules. Both should depend on abstractions. Additionally, abstractions should not depend on details. Details should depend on abstractions.
-In simpler terms, the DIP suggests that classes should rely on abstractions (e.g., interfaces or abstract classes) rather than concrete implementations. This allows for more flexible and decoupled code, making it easier to change implementations without affecting other parts of the codebase.
+## **5. Dependency Inversion Principle**
+- The Dependency Inversion Principle (DIP) states that `High-level modules should not depend on low-level modules`. `Both` should depend on `abstractions`. Additionally, abstractions should not depend on details. Details should depend on abstractions.
+- In simpler terms, the DIP suggests that classes should rely on `abstractions` (e.g., interfaces or abstract classes) rather than concrete implementations. This allows for more flexible and `decoupled code`, making it easier to change implementations without affecting other parts of the codebase.
 
-🌟Why it matters:
-• Promotes decoupled architecture.
+### Why it matters:
+- Promotes decoupled architecture.
+- Facilitates testing and maintainability.
 
-• Facilitates testing and maintainability.
-
-‍
-
-💭Example : 
+### Situation: 
 Consider an enterprise e-commerce system where order processing requires various types of notifications to be sent to customers, administrators, and inventory systems
 
 - `BAD CODE`: Direct dependency on the concrete classes

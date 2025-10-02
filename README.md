@@ -1,6 +1,6 @@
 # **System Design**
 - System design is the `process of defining the architecture`, `components`, `modules`, `interfaces`, and `data` for a system to satisfy specified requirements. 
-- It involves creating a` blueprint` for how a software system will be built, focusing on `scalability`, `performance`, `reliability`, and `maintainability`. 
+- It involves creating a `blueprint` for how a software system will be built, focusing on `scalability`, `performance`, `reliability`, and `maintainability`. 
 - System design can be broadly categorized into:
     - High-Level Design (HLD) and
     - Low-Level Design (LLD).
@@ -11,7 +11,6 @@
 | 1.     | [Introduction](#system-design)|
 | 2.     | [High Level Design (HLD)](#high-level-design-hld)|
 | 3.     | [Low Level Design (LLD)](#low-level-design)|
-
 
 
 ## **High Level Design HLD**
@@ -43,9 +42,10 @@ LLD focuses on the `detailed design of individual components` identified in the 
 | sl. no. | Topics |
 |---------|--------|
 |  1.  | SOLID Principles|
-|  2.  | DRY Principles  |
-|  3.  | KISS Principles |
-|  4.  | Design Patterns |
+|  2.  | DRY Principles (Don't Repeat Yourself) |
+|  3.  | KISS Principles (Keep it simple stupid)|
+|  4.  | YAGNI Principles (Your Aren't Gonna Need It) |
+|  5.  | Design Patterns |
 
 ## Design Questions
 ### Easy Medium Problems (Pure Design Patterns)

@@ -98,8 +98,8 @@ shape2.display_color()  # Output: Shape color is Blue
 ## **4 Pillars of OOPS**
 1. [Inheritence](#1-inheritence)
 2. [Polymorphism](#2-polymorphism)
-3. Abstraction
-4. Encapsulation
+3. [Abstraction](#3-abstraction)
+4. [Encapsulation](#4-encapsulation)
 
 ## **1. Inheritence**
 Inheritance is an OOP concept where a class (child/derived) inherits attributes and methods from another class (parent/base), promoting code reuse and extensibility. 

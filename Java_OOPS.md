@@ -8,12 +8,13 @@ Object-Oriented Programming (OOP) is a programming paradigm that organizes code 
 |   2.    | [Objects](#2-objects)      |
 |   3     | [Constructors](#3-constructors)
 |   4.    | [Polymorphism](#4-polymorphism) |
-|   5.    | Encapsulation|
-|   6.    | Inheritance  |
-|   7.    | Java Key words|
-|   8.    | Access Modifiers|
-|   9.    | Exception Handling|
-|   10.    | Generics and Wildcards|
+|   5.    | [Inheritance](#5-inheritance)|
+|   6.    | [Encapsulation](#6-encapsulation)  |
+|   7.    | [Abstraction](#7-abstraction)  |
+|   8.    | [Java Keywords](#8-java-keywords)|
+|   9.    | [Access Modifiers]()|
+|   10.   | [Exception Handling]()|
+|   11.   | [Generics and Wildcards]()|
 
 # **1. Classes**
 - A class is a blueprint for creating objects. 
@@ -80,16 +81,12 @@ public class Main {
 ```java
 // Parent class
 class Animal {
-  void eat() {
-    System.out.println("Animal is eating.");
-  }
+  void eat() { System.out.println("Animal is eating."); }
 }
 
 // Subclass inheriting from Animal
 class Dog extends Animal {
-  void bark() {
-    System.out.println("Dog barks: Woof Woof!");
-  }
+  void bark() { System.out.println("Dog barks: Woof Woof!"); }
 }
 
 public class InheritanceDemo {
@@ -109,12 +106,12 @@ public class InheritanceDemo {
 // A Person can have a Car.
 class Car {
   String model;
+  
   Car(String model) {
     this.model = model;
   }
-  void drive() {
-    System.out.println("Driving a " + model);
-  }
+
+  void drive() { System.out.println("Driving a " + model); }
 }
 
 class Person {
@@ -125,6 +122,7 @@ class Person {
     this.name = name;
     this.car = car;
   }
+  
   void goForDrive() {
     System.out.println(name + " is going for a drive.");
     car.drive();
@@ -152,9 +150,8 @@ import java.util.List;
 
 class Player {
   String name;
-  Player(String name) {
-    this.name = name;
-  }
+  
+  Player(String name) { this.name = name; }
 }
 
 class Team {
@@ -164,9 +161,11 @@ class Team {
   Team(String teamName) {
     this.teamName = teamName;
   }
+  
   void addPlayer(Player player) {
     players.add(player);
   }
+  
   void showTeam() {
     System.out.println("Team " + teamName + " has players:");
     for (Player p : players) {
@@ -193,7 +192,6 @@ Explanation:
 **Key Differences Between Association and Aggregation**:
 
 - **Association** is a `general relationship` (friendship) with `no ownership` implied; objects `simply interact` or `use each other`.
-
 - **Aggregation** represents a `“has-a” relationship` where one object (the whole) contains or references other objects (the parts), but the `parts can exist independently of the whole`.
 
 
@@ -220,8 +218,7 @@ class House {
     kitchen = new Room("Kitchen");
   }
   void showHouse() {
-    System.out.println(
-        "House contains: " + livingRoom.name + " and " + kitchen.name);
+    System.out.println("House contains: " + livingRoom.name + " and " + kitchen.name);
   }
 }
 
@@ -244,20 +241,15 @@ Explanation:
 
 ```java
 class Printer {
-  void print(String message) {
-    System.out.println("Printing: " + message);
-  }
+  void print(String message) { System.out.println("Printing: " + message); }
 }
 
 class Document {
   String content;
-  Document(String content) {
-    this.content = content;
-  }
+  Document(String content) { this.content = content; }
+  
   // Dependency: Document uses Printer to print its content.
-  void printDocument(Printer printer) {
-    printer.print(content);
-  }
+  void printDocument(Printer printer) { printer.print(content); }
 }
 
 public class DependencyDemo {
@@ -300,16 +292,12 @@ interface Payment {
 
 class CreditCardPayment implements Payment {
   @Override
-  public void pay() {
-    System.out.println("Paid using Credit Card.");
-  }
+  public void pay() { System.out.println("Paid using Credit Card."); }
 }
 // similarly cash and UPI can also have their own implementation
 class CashPayment implements Payment {
   @Override
-  public void pay() {
-    System.out.println("Paid using Cash.");
-  }
+  public void pay() { System.out.println("Paid using Cash."); }
 }
 
 public class RealizationDemo {
@@ -393,9 +381,7 @@ class Movie {
   private String title; // Default: null
   private int duration; // Default: 0
 
-  public void displayDetails() {
-    System.out.println("Title: " + title + ", Duration: " + duration + " mins");
-  }
+  public void displayDetails() { System.out.println("Title: " + title + ", Duration: " + duration + " mins");}
 }
 
 public class Main {
@@ -427,9 +413,7 @@ class Movie {
     this.title = "Untitled";
     this.duration = 90;
   }
-  public void displayDetails() {
-    System.out.println("Title: " + title + ", Duration: " + duration + " mins");
-  }
+  public void displayDetails() { System.out.println("Title: " + title + ", Duration: " + duration + " mins"); }
 }
 
 public class Main {
@@ -459,15 +443,13 @@ class Movie {
     this.title = title;
     this.duration = duration;
   }
-  public void displayDetails() {
-    System.out.println("Title: " + title + ", Duration: " + duration + " mins");
-  }
+  
+  public void displayDetails() { System.out.println("Title: " + title + ", Duration: " + duration + " mins"); }
 }
 
 public class Main {
   public static void main(String[] args) {
-    Movie movie =
-        new Movie("Inception", 148); // Parameterized constructor is called
+    Movie movie = new Movie("Inception", 148); // Parameterized constructor is called
     movie.displayDetails();
   }
 }
@@ -498,9 +480,7 @@ class Movie {
     this.title = other.title;
     this.duration = other.duration;
   }
-  public void displayDetails() {
-    System.out.println("Title: " + title + ", Duration: " + duration + " mins");
-  }
+  public void displayDetails() { System.out.println("Title: " + title + ", Duration: " + duration + " mins"); }
 }
 
 public class Main {
@@ -517,8 +497,6 @@ Output :
 Title: Inception, Duration: 148 mins
 ```
 
-‍
-
 ### **4. Private Constructor:**
 - A private constructor is used to restrict object creation from outside the class. 
 - It is commonly used in Singleton Design Pattern.
@@ -527,8 +505,10 @@ Example :
 ```java
 class Singleton {
   private static Singleton instance;
+  
   // Private constructor
   private Singleton() {}
+  
   public static Singleton getInstance() {
     if (instance == null) {
       instance = new Singleton();
@@ -541,8 +521,7 @@ public class Main {
   public static void main(String[] args) {
     Singleton s1 = Singleton.getInstance();
     Singleton s2 = Singleton.getInstance();
-    System.out.println(s1
-        == s2); // Output: true, as both references point to the same instance
+    System.out.println(s1 == s2); // Output: true, as both references point to the same instance
   }
 }
 ```
@@ -611,9 +590,7 @@ class Example {
     }
     this.value = value; // Initializes the value if valid
   }
-  public void display() {
-    System.out.println("Value: " + value);
-  }
+  public void display() { System.out.println("Value: " + value); }
 }
 
 public class Main {
@@ -656,15 +633,10 @@ Example :
 ```java
 class Vehicle {
   // Method to start a vehicle with basic information
-  void start(String vehicleType) {
-    System.out.println("Starting a " + vehicleType);
-  }
+  void start(String vehicleType) { System.out.println("Starting a " + vehicleType); }
 
   // Overloaded method to start a vehicle with extra information
-  void start(String vehicleType, int speed) {
-    System.out.println(
-        "Starting a " + vehicleType + " with speed: " + speed + " km/h");
-  }
+  void start(String vehicleType, int speed) { System.out.println("Starting a " + vehicleType + " with speed: " + speed + " km/h");}
 }
 
 public class Main {
@@ -685,14 +657,10 @@ public class Main {
 ```java
 class Vehicle {
   // Method to start a vehicle with a string parameter
-  void start(String vehicleType) {
-    System.out.println("Starting a " + vehicleType);
-  }
+  void start(String vehicleType) { System.out.println("Starting a " + vehicleType);}
 
   // Overloaded method to start a vehicle with an integer parameter
-  void start(int vehicleId) {
-    System.out.println("Starting a vehicle with ID: " + vehicleId);
-  }
+  void start(int vehicleId) { System.out.println("Starting a vehicle with ID: " + vehicleId); }
 }
 
 public class Main {
@@ -720,31 +688,23 @@ Example :
 ```java
 // Parent class
 class Vehicle {
-  void start() {
-    System.out.println("Starting a generic vehicle");
-  }
+  void start() { System.out.println("Starting a generic vehicle");}
 }
 
 // Subclasses overriding the start method
 class Car extends Vehicle {
   @Override
-  void start() {
-    System.out.println("Starting a car");
-  }
+  void start() { System.out.println("Starting a car");}
 }
 
 class Bike extends Vehicle {
   @Override
-  void start() {
-    System.out.println("Starting a bike");
-  }
+  void start() { System.out.println("Starting a bike");}
 }
 
 class Truck extends Vehicle {
   @Override
-  void start() {
-    System.out.println("Starting a truck");
-  }
+  void start() { System.out.println("Starting a truck"); }
 }
 
 public class Main {
@@ -769,11 +729,365 @@ public class Main {
 - Disadvantage: complex debugging
 
 
+# **5. Inheritance**
+- Inheritance facilitates code reuse and establishes a hierarchical relationship between classes. 
+- By inheriting properties and methods from a parent class, a subclass can extend or override functionalities, enabling efficient and scalable application development. 
+
+### **Types of Inheritance:**
+1. **Single Inheritance:**
+In single inheritance, a subclass inherits from a single parent class. 
+
+Example : 
+```java
+class Animal {
+  void eat() { System.out.println("This animal eats food."); }
+}
+
+class Dog extends Animal {
+  void bark() { System.out.println("The dog barks."); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.eat(); // Inherited method
+    dog.bark();
+  }
+}
+```
+
+2. **Multilevel Inheritance**: 
+In multilevel inheritance, a class inherits from a parent class, and another class further inherits from this child class, forming a chain.
+Example : 
+```java
+class Animal {
+  void eat() { System.out.println("This animal eats food"); }
+}
+
+class Mammal extends Animal {
+  void walk() { System.out.println("This mammal walks."); }
+}
+
+class Dog extends Mammal {
+  void bark() { System.out.println("The dog barks."); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.eat(); // Inherited from Animal
+    dog.walk(); // Inherited from Mammal
+    dog.bark();
+  }
+}
+```
+
+3. **Hierarchical Inheritance**:
+In hierarchical inheritance, multiple subclasses inherit from a single parent class. 
+Example : 
+```java
+class Animal {
+  void eat() { System.out.println("This animal eats food."); }
+}
+
+class Dog extends Animal {
+  void bark() { System.out.println("The dog barks."); }
+}
+
+class Cat extends Animal {
+  void meow() { System.out.println("The cat meows."); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.eat();
+    dog.bark();
+    Cat cat = new Cat();
+    cat.eat();
+    cat.meow();
+  }
+}
+```
+
+4. **Multiple Inheritance**: 
+- **Java does not support Multiple inheritance** directly due to the `diamond problem`, but it can be achieved using interfaces. 
+- In Multiple inheritance, A single class can inherit properties from multiple interfaces.
+
+### What is the Diamond Problem?
+The diamond problem arises in languages that allow multiple inheritance with classes. Imagine a scenario where a class inherits from two parent classes that both have a method with the same name. If the child class does not override the method, it creates ambiguity as to which implementation the child class should inherit. This leads to confusion and potential conflicts in the program.
+
+Problem Example : 
+```java
+class Animal {
+  public void sound() { System.out.println("Animal makes a sound"); }
+}
+
+class Dog extends Animal {
+  @Override
+  public void sound() { System.out.println("Dog barks"); }
+}
+
+class Cat extends Animal {
+  @Override
+  public void sound() { System.out.println("Cat meows"); }
+}
+
+// Not supported in Java
+public class HybridAnimal extends Dog, Cat {
+  public static void main(String[] args) {
+    HybridAnimal hybrid = new HybridAnimal();
+    hybrid.sound(); // Creates ambiguity: Should it call Dog's sound() or Cat's sound()?
+  }
+}
+```
+
+### How Java Resolves This?
+- Java avoids this problem by not allowing multiple inheritance with classes. Instead, Java provides `interfaces` as a way to achieve multiple inheritance.
+- When a class implements multiple interfaces, it must provide implementations for the methods defined in the interfaces. This eliminates ambiguity since the child class explicitly defines the behavior of inherited methods.
+
+Solution Example : 
+```java
+interface Dog {
+  void sound();
+}
+
+interface Cat {
+  void sound();
+}
+
+public class HybridAnimal implements Dog, Cat {
+  @Override
+  public void sound() {
+    // You can define custom logic to decide which sound to make
+    Dog.super.sound(); // Calls Dog's sound()
+    // Cat.super.sound();  // Or you can choose to call Cat's sound()
+  }
+
+  public static void main(String[] args) {
+    HybridAnimal hybrid = new HybridAnimal();
+    hybrid.sound(); // Calls Dog's sound
+  }
+}
+```
+
+5. **Hybrid Inheritance** : 
+- Hybrid inheritance is a combination of more than one type of inheritance. It can involve both single inheritance and multiple inheritance.
+- In Java, hybrid inheritance is achieved by combining classes and interfaces. Since Java doesn't support multiple inheritance with classes (to avoid the diamond problem), this type of inheritance can only be implemented using interfaces alongside class inheritance.
+
+Example :
+```java
+// Single inheritance
+class Animal {
+  void eat() { System.out.println("The animal eats food."); }
+}
+
+// Interface for multiple inheritance
+interface Mammal {
+  void walk();
+}
+
+// Interface for multiple inheritance
+interface Pet {
+  void play();
+}
+
+// Hybrid inheritance using a combination of class and interfaces
+class Dog extends Animal implements Mammal, Pet {
+  @Override
+  void eat() { System.out.println("The dog eats food."); }
+  
+  @Override
+  public void walk() { System.out.println("The dog walks."); }
+
+  @Override
+  public void play() { System.out.println("The dog plays fetch."); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.eat();
+    dog.walk();
+    dog.play();
+  }
+}
+```
+
+# **6. Encapsulation**
+- Encapsulation involves bundling data (variables) and methods (functions) that operate on the data into a single unit called a class.
+- Encapsulation also restricts direct access to certain components, ensuring controlled interaction through methods. 
+- This prevents unauthorized or accidental interference with the object’s data and ensures better control over the data flow in a program. 
+
+In Java, encapsulation is typically achieved by:
+- Declaring class variables as private. 🔐
+- Providing public getter and setter methods to access and modify these variables. 🏷️
+
+**Key Features of Encapsulation:**
+
+1. `Data Hiding`:
+- Prevents direct access to sensitive data, ensuring that changes can only be made through controlled methods. 🛡️
+
+2. `Modularity`:
+- Promotes modular design by separating data and behavior, making the code easier to manage and debug. 🧩
+
+3. `Security`:
+- Protects the integrity of the data by restricting unwanted modifications. 🔒
+
+4. `Flexibility`:
+- Allows developers to change the internal implementation of a class without affecting external code. 🔄
+
+Example :
+```java
+class BankAccount {
+  // Private variables (data hiding)
+  private String accountNumber;
+  private double balance;
+
+  // Constructor
+  public BankAccount(String accountNumber, double initialBalance) {
+    this.accountNumber = accountNumber;
+    this.balance = initialBalance;
+  }
+
+  // Public getter method
+  public String getAccountNumber() {
+    return accountNumber;
+  }
+
+  // Public getter method
+  public double getBalance() {
+    return balance;
+  }
+
+  // Public setter method for deposit
+  public void deposit(double amount) {
+    if (amount > 0) {
+      balance += amount;
+      System.out.println("Deposited: " + amount);
+    } else {
+      System.out.println("Invalid deposit amount.");
+    }
+  }
+
+  // Public setter method for withdrawal
+  public void withdraw(double amount) {
+    if (amount > 0 && amount <= balance) {
+      balance -= amount;
+      System.out.println("Withdrawn: " + amount);
+    } else {
+      System.out.println("Invalid withdrawal amount.");
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    BankAccount account = new BankAccount("12345", 1000.00);
+    System.out.println("Account Number: " + account.getAccountNumber());
+    System.out.println("Initial Balance: " + account.getBalance());
+    account.deposit(500.00);
+    System.out.println("Updated Balance: " + account.getBalance());
+    account.withdraw(200.00);
+    System.out.println("Final Balance: " + account.getBalance());
+  }
+}
+```
+
+# **7. Abstraction**
+- Abstraction is a core concept of Object-Oriented Programming (OOP) that focuses on exposing only the essential details of an object while hiding the implementation details.
+- In Java, abstraction is achieved using **abstract classes** and **interfaces**.
+
+## **7.1 Abstract classes**
+- An abstract class acts as a blueprint for other classes, providing a foundation for `shared behavior` while allowing subclasses to define specific implementations.
+- Abtract classes `can't be instantiated` - their child classes needs to extend them and their objects can be created
+- It can include `both` `abstract methods` (declared but not implemented) and `concrete methods` (implemented with logic). 
+- Importantly, abstract classes cannot be instantiated directly, meaning they are designed solely to be extended by other classes.
+
+```java
+// Abstract Class Animal
+abstract class Animal {
+  // Abstract method for unique behaviors
+  abstract void makeSound();
+  
+  // Concrete method for shared behaviors
+  void sleep() { System.out.println("Sleeping..."); }
+}
+
+// Specific implementation for Dog
+class Dog extends Animal {
+  @Override
+  void makeSound() { System.out.println("Bark"); }
+}
+
+// Specific implementation for Cat
+class Cat extends Animal {
+  @Override
+  void makeSound() { System.out.println("Meow"); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Animal myDog = new Dog(); // Treating Dog as an Animal
+    myDog.makeSound(); // Outputs: Bark
+    myDog.sleep(); // Outputs: Sleeping...
+
+    Animal myCat = new Cat(); // Treating Cat as an Animal
+    myCat.makeSound(); // Outputs: Meow
+    myCat.sleep(); // Outputs: Sleeping...
+  }
+}
+```
+
+## **7.2 Interfaces**
+- An interface defines a `contract` or a set of rules that a class must adhere to. 
+- It contains `abstract methods` that specify what a class should do, without dictating how it should be done.
+- Unlike abstract classes, interfaces `focus purely on behavior` and `do not include state (fields)`. 
+- Starting from Java 8, `interfaces can also include default and static methods`, enabling the addition of shared logic without breaking existing implementations.
+- Interfaces are a powerful tool for achieving abstraction and `ensuring consistency across unrelated classes`.
+
+Example : 
+
+```java
+interface Animal {
+  void makeSound(); // Abstract method
+  void sleep(); // Abstract method
+}
+
+// Specific implementation for Dog
+class Dog implements Animal {
+  @Override
+  public void makeSound() { System.out.println("Bark"); }
+
+  @Override
+  public void sleep() { System.out.println("Sleeping..."); }
+}
+
+// Specific implementation for Cat
+class Cat implements Animal {
+  @Override
+  public void makeSound() { System.out.println("Meow"); }
+
+  @Override
+  public void sleep() { System.out.println("Sleeping...");}
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Animal myDog = new Dog();
+    myDog.makeSound(); // Outputs: Bark
+    myDog.sleep(); // Outputs: Sleeping...
+    
+    Animal myCat = new Cat();
+    myCat.makeSound(); // Outputs: Meow
+    myCat.sleep(); // Outputs: Sleeping...
+  }
+}
+```
 
 
 
-
-# **7. Java Keywords**
+# **8. Java Keywords**
 ### **1. this** keyword
 - The "this" keyword provides a reference to the current object.
 - It allows access to the object's properties, methods, and other members.

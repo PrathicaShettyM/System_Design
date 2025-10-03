@@ -1077,7 +1077,7 @@ public class Main {
     Animal myDog = new Dog();
     myDog.makeSound(); // Outputs: Bark
     myDog.sleep(); // Outputs: Sleeping...
-    
+
     Animal myCat = new Cat();
     myCat.makeSound(); // Outputs: Meow
     myCat.sleep(); // Outputs: Sleeping...
@@ -1085,6 +1085,421 @@ public class Main {
 }
 ```
 
+### **Abstract Class**:
+1. **Definition**:
+An abstract class is a class that `cannot be instantiated directly`. It serves as a `blueprint for other classes` to derive from. 
+
+2. **Method Implementation**:
+An abstract class can `contain both abstract methods` (methods without an implementation) and `concrete methods` (methods with an implementation).
+
+3. **Variables**:
+Abstract classes `can have member variables`, including` final, non-final, static, and non-static variables`. 
+
+4. **Constructors**:
+Abstract classes `can have constructors`, which can be `used to initialize variables in the abstract class` when it is instantiated by a subclass. 
+
+### **Interface**:
+1. **Definition**:
+An interface is a `reference type` in Java, it is similar to a class, and it is a `collection of abstract methods and static constants`.
+
+2. **Method Implementation**:
+All methods in an interface are `by default abstract and must be implemented by any class that implements the interface`. From Java 8, interfaces `can have default and static methods with concrete implementations`. From Java 9, interfaces can also have `private methods`. 
+
+3. **Variables**:
+Variables declared in an interface are by default `public, static, and final (constants)`. 
+
+4. **Constructors**:
+Interfaces are purely designed to define a contract for classes to implement. They `cannot have constructors because they do not manage or hold any state, and constructors are used to initialize an object's state`. This design aligns with the principle that interfaces focus solely on defining behavior, leaving the implementation details to the implementing classes. 
+
+
+### When to use what?
+1. **Consider using abstract classes in these situations**:
+- In the Java application, if there are `some related classes that need to share some lines of code`, then you can put these lines of code within the abstract class, and this abstract class should be extended by all these related classes. 
+```java
+abstract class Animal {
+  // concrete method
+  void eat() { System.out.println("Eating..."); }
+
+  // abstract method
+  abstract void makeSound();
+}
+
+class Dog extends Animal {
+  @Override
+  void makeSound() { System.out.println("Bark"); }
+}
+
+class Cat extends Animal {
+  @Override
+  void makeSound() { System.out.println("Meow"); }
+}
+```
+
+2. **Consider using interfaces in these situations**:  
+- It is a total abstraction, `all methods` declared within an interface `must be implemented by the class`(es) that implements this interface.
+```java
+interface Animal {
+  void makeSound();
+  void sleep();
+}
+
+class Dog implements Animal {
+  @Override
+  public void makeSound() { System.out.println("Bark"); }
+
+  @Override
+  public void sleep() { System.out.println("Dog is sleeping"); }
+}
+```
+
+- **Multiple inheritance**: A class can implement more than one interface
+```java
+interface Animal {
+  void makeSound();
+}
+
+interface Pet {
+  void play();
+}
+
+class Dog implements Animal, Pet {
+  @Override
+  public void makeSound() { System.out.println("Bark"); }
+
+  @Override
+  public void play() { System.out.println("Dog is playing"); }
+}
+```
+
+### Interview Questions : 
+1. What is the difference between an abstract class and an interface in Java? When would you use one over the other?
+- Abstract classes are used when `classes share common functionality and state`, whereas interfaces are used to define a `contract for unrelated classes`. 
+- Use abstract classes when you `need shared code` and interfaces for `behavior enforcement`.
+```java
+abstract class Animal {
+  String name;
+  Animal(String name) {
+     this.name = name;
+  }
+
+  abstract void sound();
+}
+
+interface Pet {
+  void play();
+}
+
+class Dog extends Animal implements Pet {
+  Dog(String name) { super(name); }
+
+  @Override
+  void sound() { System.out.println(name + " barks."); }
+
+  @Override
+  public void play() { System.out.println(name + " plays fetch."); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog("Buddy");
+    dog.sound(); // Output: Buddy barks.
+    dog.play(); // Output: Buddy plays fetch.
+  }
+}
+```
+
+2. Can an abstract class implement an interface? If yes, why would you do it?
+- `Yes`, an abstract class can implement an interface to provide partial implementation. 
+- This is useful `when some methods in the interface` have `common logic that can be shared across subclasses`.
+```java
+interface Pet {
+  void play();
+}
+
+abstract class Animal implements Pet {
+  String name;
+  Animal(String name) {
+    this.name = name;
+  }
+
+  abstract void sound();
+
+  @Override
+  public void play() { System.out.println(name + " plays."); }
+}
+
+class Dog extends Animal {
+  Dog(String name) {
+    super(name);
+  }
+
+  @Override
+  void sound() { System.out.println(name + " barks."); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog("Buddy");
+    dog.sound(); // Output: Buddy barks.
+    dog.play(); // Output: Buddy plays.
+  }
+}
+```
+
+3. Why can’t we instantiate an abstract class? What would be the consequences if it were allowed?
+- Abstract classes are `incomplete blueprints meant to be extended`. 
+- Allowing instantiation would violate the principle of abstraction, as abstract methods lack implementation.
+```java
+abstract class Animal {
+  abstract void sound();
+}
+
+class Dog extends Animal {
+  @Override
+  void sound() { System.out.println("Dog barks."); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    // Animal animal = new Animal(); // Compile-time error
+    Dog dog = new Dog();
+    dog.sound(); // Output: Dog barks.
+  }
+}
+```
+4. What are the limitations of using abstract classes over interfaces?
+- Abstract classes allow single inheritance only, whereas interfaces can be implemented by multiple classes, offering more flexibility.
+
+5. When should you not use an interface? Provide a practical example.
+- Avoid interfaces when the `implementing classes share common functionality or state`.
+
+6. What are default methods in Java interfaces? Why were they introduced?
+- Default methods are `methods in interfaces that have a body (implementation)`. 
+- They were `introduced in Java 8` to provide backward compatibility. This `allows interfaces to evolve` by `adding new methods without breaking existing implementations of the interface`.
+```java
+interface Animal {
+  void sound() {
+    System.out.println("This is a default animal sound.");
+  }
+}
+
+class Dog implements Animal {
+  // No need to override sound
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.sound(); // Output: This is a default animal sound.
+  }
+}
+```
+
+7. What is the difference between abstract methods and default methods in an interface?
+- Abstract methods `have no body` and `must be implemented by a class that implements the interface`. 
+- Default methods `have a body` and can be `optionally overridden by implementing classes`.
+
+8. Why do we need default methods in Java? Couldn’t we achieve the same with abstract classes?
+- **Default methods allow interfaces to add new behavior without forcing all implementing classes to change**. (very important line) 
+- Abstract classes cannot achieve this because Java does not allow multiple inheritance of classes. 
+- Interfaces with default methods enable flexibility while avoiding the diamond problem.
+
+```java
+interface Animal {
+  default void sound() {
+    System.out.println("This is a default animal sound.");
+  }
+}
+
+abstract class Mammal {
+  abstract void eat();
+}
+
+class Dog extends Mammal implements Animal {
+  @Override
+  void eat() {
+    System.out.println("Dog is eating.");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.eat(); // Output: Dog is eating.
+    dog.sound(); // Output: This is a default animal sound.
+  }
+}
+```
+
+9. Can a class implement an interface without overriding its default methods?
+- `Yes`, a class can implement an interface without overriding its default methods. 
+- The default implementation will be inherited. 
+- However, the class can override the method if it needs custom behavior.
+
+10. What happens if a class implements an interface with a default method and also inherits the same method from a superclass? Which one gets priority?
+- The **method from the superclass takes priority over the default method in the interface**. 
+- The **class will inherit the superclass's method unless it explicitly overrides it**.
+```java
+interface Animal {
+  default void sound() {
+    System.out.println("This is a default animal sound.");
+  }
+}
+
+class Mammal {
+  public void sound() {
+    System.out.println("This is a mammal sound.");
+  }
+}
+
+class Dog extends Mammal implements Animal {
+  // No need to override sound
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.sound(); // Output: This is a mammal sound.
+  }
+}
+```
+
+11. What happens if a class implements two interfaces that have a default method with the same name? (very important)
+- If a class implements two interfaces with the same default method, `it must override the method to resolve the ambiguity explicitly`.
+- Imagine two interfaces, DogBehaviour and CatBehaviour, both of which have a makeSound() default method. A class AnimalProcessor implements both interfaces and needs to resolve the conflict explicitly.
+
+```java
+interface DogBehavior {
+  default void makeSound() {
+    System.out.println("Dog barks.");
+  }
+}
+
+interface CatBehavior {
+  default void makeSound() {
+    System.out.println("Cat meows.");
+  }
+}
+
+class AnimalProcessor implements DogBehavior, CatBehavior {
+  // Resolving the conflict by overriding the method
+  @Override
+  public void makeSound() {
+    System.out.println(
+        "Resolving conflict between DogBehavior and CatBehavior:");
+
+    // Call the default method from DogBehavior
+    DogBehavior.super.makeSound();
+
+    // Call the default method from CatBehavior
+    CatBehavior.super.makeSound();
+
+    // Adding custom behavior
+    System.out.println("Custom behavior: AnimalProcessor decides which sound to make.");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    AnimalProcessor processor = new AnimalProcessor();
+    processor.makeSound();
+  }
+}
+```
+
+12. Is it possible to override a default method and make it abstract in a subclass or interface? Why or why not?
+- `No`, a default method cannot be overridden and made abstract. 
+- Once a default method is defined, overriding implementations must provide a concrete implementation.
+
+13. Can default methods access instance variables of the implementing class? Why or why not?
+- `No`, `default methods cannot access instance variables of the implementing class` **because interfaces do not have state**. 
+- `Default methods are stateless` and `only work with parameters and their internal logic`.‍
+```java
+interface Animal {
+  default void sound() { System.out.println("This is a default animal sound."); }
+}
+
+class Dog implements Animal {
+  private String name = "Buddy";
+  public void printName() { System.out.println("Dog's name is " + name); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Dog dog = new Dog();
+    dog.printName(); // Output: Dog's name is Buddy
+    dog.sound(); // Output: This is a default animal sound.
+  }
+}
+```
+
+14. What are some limitations of default methods in comparison to methods in abstract classes?
+- **Default methods** `cannot have instance variables`.
+- They `cannot use super` to refer to the implementing class’s parent.
+- **Abstract classes** `can have constructors and fields`, **but interfaces cannot**.
+```java
+abstract class Animal {
+  String name; // Instance variable
+  Animal(String name) {
+    this.name = name;
+  }
+  // Abstract method
+  abstract void sound();
+  // Non-abstract method to demonstrate additional functionality
+  void eat() {
+    System.out.println(name + " is eating.");
+  }
+}
+
+// Interface example showcasing default methods and their limitations
+interface Playable {
+  // Default method
+  default void play() {
+    System.out.println("Playing with the animal.");
+  }
+  // Attempt to declare an instance variable (not allowed in interfaces)
+  String name = "Buddy";
+  // Interfaces can only contain static final variables, which are essentially
+  // constants. Since it is static you cannot call it instance variable.
+  default void setName(String name) {
+    this.name = name; // Error: Interfaces cannot have instance variables
+  }
+}
+
+// Dog class extends abstract class Animal and implements interface Playable
+class Dog extends Animal implements Playable {
+  // Constructor calling the abstract class constructor
+  Dog(String name) {
+    super(name);
+  }
+
+  // Overriding the abstract method
+  @Override
+  void sound() {
+    System.out.println(name + " barks.");
+  }
+
+  // Uncommenting the following code will cause an error because default methods
+  // cannot use super to refer to parent methods
+
+  @Override
+  public void play() {
+    super.play(); // Error: Cannot use super to refer to a parent method in an interface
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    // Abstract class functionality
+    Dog dog = new Dog("Buddy");
+    dog.sound(); // Output: Buddy barks.
+    dog.eat(); // Output: Buddy is eating.
+
+    // Interface functionality
+    dog.play(); // Output: Playing with the animal.
+  }
+}
+```
 
 
 # **8. Java Keywords**

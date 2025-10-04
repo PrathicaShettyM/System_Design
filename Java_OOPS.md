@@ -3,17 +3,18 @@ Object-Oriented Programming (OOP) is a programming paradigm that organizes code 
 
 # **Table of Contents**
 | sl. no. | topics |
-|---------|--------------|
-|   1.    | [Classes](#1-classes)      |
-|   2.    | [Objects](#2-objects)      |
+|---------|--------|
+|   0.    | Basics |
+|   1.    | [Classes](#1-classes)|
+|   2.    | [Objects](#2-objects)|
 |   3     | [Constructors](#3-constructors)
 |   4.    | [Polymorphism](#4-polymorphism) |
 |   5.    | [Inheritance](#5-inheritance)|
 |   6.    | [Encapsulation](#6-encapsulation)  |
 |   7.    | [Abstraction](#7-abstraction)  |
 |   8.    | [Java Keywords](#8-java-keywords)|
-|   9.    | [Access Modifiers]()|
-|   10.   | [Exception Handling]()|
+|   9.    | [Access Modifiers](#9-access-modifiers)|
+|   10.   | Exception Handling |
 |   11.   | [Generics and Wildcards](#11-generics)|
 
 # **1. Classes**

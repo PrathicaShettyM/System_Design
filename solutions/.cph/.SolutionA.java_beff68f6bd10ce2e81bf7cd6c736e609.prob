@@ -1,1 +1,0 @@
-{"name":"Local: SolutionA","url":"c:\\Users\\prath\\OneDrive\\Desktop\\System_Design\\solutions\\SolutionA.java","tests":[{"id":1757256154086,"input":"3\n1 4\n1 5\n5 4","output":"1\n10\n21"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\prath\\OneDrive\\Desktop\\System_Design\\solutions\\SolutionA.java","group":"local","local":true}

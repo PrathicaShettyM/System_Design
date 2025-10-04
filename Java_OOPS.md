@@ -14,7 +14,7 @@ Object-Oriented Programming (OOP) is a programming paradigm that organizes code 
 |   8.    | [Java Keywords](#8-java-keywords)|
 |   9.    | [Access Modifiers]()|
 |   10.   | [Exception Handling]()|
-|   11.   | [Generics and Wildcards]()|
+|   11.   | [Generics and Wildcards](#11-generics)|
 
 # **1. Classes**
 - A class is a blueprint for creating objects. 
@@ -1660,6 +1660,72 @@ Explanation:
 2. Static methods do not belong to any specific instance; they are associated with the class itself.
 3. `Since there is no instance in a static context, using "this" leads to a compilation error`.
 
+# **9. Access Modifiers**
+- Access modifiers control the visibility and accessibility of classes, methods, and variables in a program. 
+- They play a crucial role in encapsulation by restricting or allowing access to certain parts of the code based on the specified modifier.
+- Access modifiers prevent data members or functions of one class from tampering with another class while restricting its access. 
+- It allows us to select which members can be accessed directly by outside functions and which are not. 
+
+**Types of Access Modifiers in Java**: 
+
+Java provides four main types of access modifiers:
+1. Public 
+2. Private
+3. Protected
+4. Default
+
+#### **1. Public** : 
+Scope:
+- A public class, method, or variable is `accessible from anywhere in the application`, whether it’s within the same package or from a different package.
+‍
+
+Usage:
+
+- The public modifier is used when you want the `element` (class, method, or variable) to be `globally accessible`.
+
+
+#### **2. Private**: 
+
+Scope: 
+- A private class, method, or variable `is not accessible from anywhere in the application`. 
+- It is `only accessible within the same class` and `not from outside the class`, whether in the `same package`, a `child class, or a different package`. 
+- It will be `accessible only within the same class`.
+
+
+Usage: 
+
+- The private modifier is used when you want an element (class, method, or variable) to be accessible only within the same class. 
+
+
+#### **3. Protected**
+Scope: 
+
+- The protected modifier allows to `access members within the same package` and from `subclasses in other packages`. 
+- It offers `more restricted access compared to public`, but it is `broader than private`. 
+- By using protected, you enable controlled inheritance, allowing child classes to reuse and extend parent class functionality while keeping it hidden from unrelated classes.
+
+‍
+Usage:
+
+- The protected modifier is used in scenarios where inheritance is a key design pattern. 
+- For example, you might define `reusable methods or fields in a superclass` that `should only be accessed or overridden by its subclasses`. 
+- It is commonly used in frameworks or libraries to expose specific functionality to derived classes while restricting general access.
+
+#### **4. Default (Package-Private)**
+Scope: 
+
+- When `no access modifier is specified`, the default (package-private) access modifier is applied. 
+- Members with this access modifier are `accessible only within the same package but not from outside it`. 
+- This ensures that the functionality is available for closely related classes within the package while being hidden from other parts of the application.
+
+
+Usage: 
+
+- Default access is used when you want to `limit access to package-level components`. 
+- It is ideal for `internal helper classes, methods, or variables` that `do not need to be exposed to external packages`. 
+- This access level `supports modularity by grouping related classes` and ensuring that their `interactions remain encapsulated within the package`.
+
+![alt text](image-2.png)
 
 # 11. **Generics**
 - Generics provide a way to `parameterize types` in Java. They enable classes, interfaces, and methods to operate on various data types without the need to specify the exact type at compile time. 

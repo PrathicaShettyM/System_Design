@@ -1502,6 +1502,7 @@ public class Main {
 ```
 
 
+
 # **8. Java Keywords**
 ### **1. this** keyword
 - The "this" keyword provides a reference to the current object.
@@ -1659,5 +1660,272 @@ Explanation:
 2. Static methods do not belong to any specific instance; they are associated with the class itself.
 3. `Since there is no instance in a static context, using "this" leads to a compilation error`.
 
+
+# 11. **Generics**
+- Generics provide a way to `parameterize types` in Java. They enable classes, interfaces, and methods to operate on various data types without the need to specify the exact type at compile time. 
+- By using generics, developers can ensure `type safety`, `reduce code duplication`, and `improve readability`.
+
+Types of Java Generics : 
+
+### 11.1 **Generic Method**:
+- Generic Java method `takes a parameter` and `returns some value` after performing a task. 
+- It is exactly like a normal function, however, a generic method has `type parameters` that are cited by actual type. 
+- This allows the generic method to be used in a more general way. 
+- The `compiler takes care of the type of safety` which enables programmers to code easily since they do not have to perform long, individual type castings.
+
+```java
+class Test {
+  // A Generic method example
+  static <T> void genericDisplay(T element) {
+    System.out.println(element.getClass().getName() + " = " + element);
+  }
+
+  // Driver method
+  public static void main(String[] args) {
+    genericDisplay(11); // Integer argument
+    genericDisplay("CodeWithAryan"); // String argument
+    genericDisplay(1.0); // double argument
+  }
+}
+
+// Output
+// java.lang.Integer = 11
+// java.lang.String = CodeWithAryan
+// java.lang.Double = 1.0‍
+```
+
+### **11.2. Generic Classes**:
+- A generic class is implemented exactly like a non-generic class. 
+- The only difference is that it contains a `type parameter section`. 
+- There `can be more than one type of parameter`, `separated by a comma`. 
+- The classes, which accept one or more parameters, are known as `parameterized classes` or parameterized types.
+
+Ex1: Only one type parameter passed
+```java
+class Test<T> {
+  T obj; // An object of type T is declared
+  Test(T obj) { // constructor
+    this.obj = obj;
+  } 
+  public T getObject() {
+    return this.obj;
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    Test<Integer> iObj = new Test<Integer>(15);
+    System.out.println(iObj.getObject());
+
+    Test<String> sObj = new Test<String>("CodeWithAryan");
+    System.out.println(sObj.getObject());
+  }
+}
+// output
+// 15
+// CodeWithAryan
+```
+
+Ex2: Multiple type parameters passed
+```java
+class Test<T, U> {
+  T obj1; // An object of type T
+  U obj2; // An object of type U
+
+  // constructor
+  Test(T obj1, U obj2) {
+    this.obj1 = obj1;
+    this.obj2 = obj2;
+  }
+
+  // To print objects of T and U
+  public void print() {
+    System.out.println(obj1);
+    System.out.println(obj2);
+  }
+}
+
+// Driver class to test above
+class Main {
+  public static void main(String[] args) {
+    Test<String, Integer> obj = new Test<String, Integer>(15, CodeWithAryan);
+    obj.print();
+  }
+}
+// Output:
+// 15
+// CodeWithAryan
+```
+
+**NOTE** : Generics Work Only with Reference Types - like String, Integer, Double and not with primitve data types like int, char etc. But you can make arrays of the primitive types.
+1. Test<int> obj = new Test<int>(20); // invalid
+2. Test<Integer> obj = new Test<Integer>(20); // valid
+3. ArrayList<int[]> a = new ArrayList<>(); // valid
+
+Ex: Custom ArrayList using Generics
+```java
+// Custom Generic ArrayList
+class MyArrayList<T> {
+  private Object[] elements;
+  private int size = 0;
+  public MyArrayList() {
+    elements = new Object[10]; // Default capacity
+  }
+
+  public void add(T element) {
+    if (size == elements.length) {
+      resize();
+    }
+    elements[size++] = element;
+  }
+
+  public T get(int index) {
+    if (index >= size || index < 0) {
+      throw new IndexOutOfBoundsException("Index out of bounds");
+    }
+    return (T) elements[index];
+  }
+
+  private void resize() {
+    Object[] newElements = new Object[elements.length * 2];
+    System.arraycopy(elements, 0, newElements, 0, elements.length);
+    elements = newElements;
+  }
+}
+
+// Without explicit type declaration
+MyArrayList list1 = new MyArrayList();
+list1.add("Hello");
+list1.add("World");
+list1.add(1);
+list1.add('a');
+
+// With explicit type declaration
+MyArrayList<String> list2 = new MyArrayList<>();
+list2.add("Hello");
+list2.add("World");
+```
+
+## Wildcards in Generics?
+- Wildcards are `special symbols` **used in generics** to `represent an unknown type`. 
+- They provide flexibility when working with generic types and allow developers to define relationships between different types.
+```java
+import java.util.List;
+public class WildcardExample {
+  public static void printList(List<?> list) {
+    for (Object item : list) {
+      System.out.println(item);
+    }
+  }
+
+  public static void main(String[] args) {
+    List<String> stringList = List.of("Apple", "Banana", "Cherry");
+    printList(stringList);
+    List<Integer> intList = List.of(1, 2, 3);
+    printList(intList);
+  }
+}
+```
+
+### Types of Wildcards : 
+1. Unbounded Wildcard (?) : 
+- Represents an `unknown type`.
+- Useful when the type is not relevant to the logic.
+
+Example:
+```java
+import java.util.List;
+
+public class UnboundedWildcardExample {
+  public static void printList(List<?> list) {
+    for (Object item : list) {
+      System.out.println(item);
+    }
+  }
+
+  public static void main(String[] args) {
+    List<String> stringList = List.of("Apple", "Banana", "Cherry");
+    printList(stringList);
+    List<Integer> intList = List.of(1, 2, 3);
+    printList(intList);
+  }
+}
+```
+
+2. Upper-Bounded Wildcard (? extends Type) : 
+- Restricts the type to Type or its subclasses.
+- Useful for read-only operations where the specific type is not required.
+
+Example:
+```java
+import java.util.List;
+
+public class UpperBoundedWildcardExample {
+  public static void printNumbers(List<? extends Number> list) {
+    for (Number number : list) {
+      System.out.println(number);
+    }
+  }
+
+  public static void main(String[] args) {
+    List<Integer> intList = List.of(1, 2, 3);
+    printNumbers(intList);
+    List<Double> doubleList = List.of(1.1, 2.2, 3.3);
+    printNumbers(doubleList);
+    List<String> stringList = List.of("a", "b", "c");
+    printNumbers(stringList);
+    // Error: incompatible types: List<String> cannot be converted to List<?
+    // extends Number>
+  }
+}
+```
+
+3. Lower-Bounded Wildcard (? super Type)
+- Restricts the type to Type or its superclasses.
+- Useful for write operations.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class LowerBoundedWildcardExample {
+  public static void addNumbers(List<? super Integer> list) {
+    list.add(42);
+  }
+  public static void main(String[] args) {
+    List<Number> numberList = new ArrayList<>();
+    addNumbers(numberList);
+    System.out.println(numberList);
+  }
+}
+```
+
+![alt text](image-1.png)
+
+### When to Use what ? 
+The decision to use generics or wildcards in Java largely depends on the context of your code and how you plan to interact with the objects.
+
 ‍
 
+Let’s break this down into specific method use cases and scenarios where one is more suitable than the other.
+
+### Why Use a Generic Instead of a Wildcard? 
+1. When You Need Type Consistency Across the Method : 
+- If a method must `ensure that all arguments or returned values` are of the `same specific type,` use generics. 
+- Generics explicitly define the type and provide `compile-time type safety`.
+
+2. When You’re Creating or Adding to a Collection
+- Generics are required when you’re adding elements to a collection. 
+- Wildcards (?) don’t allow additions because the compiler cannot guarantee the type safety for the unknown type.
+- For each list, we are adding an element of the same data type, which is made possible through the use of Generics. 
+
+3. When You Need a Specific Type in Return : 
+- If a method needs to return an object of a specific type, use generics. 
+- Wildcards (?) make the type unknown, which is not useful for returned values.
+
+### Why Use a Wildcard Instead of a Generic ? 
+1. When You’re Only Reading from a Collection
+- If a method only needs to read from a collection and doesn’t care about the exact type, use wildcards.  
+- Wildcards provide flexibility and are less restrictive than generics.
+
+‍

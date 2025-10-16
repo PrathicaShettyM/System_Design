@@ -111,7 +111,7 @@ Automation Tools:
 4. **Performance Testing**: JMeter, Gatling, Locust.
 
 
-## **7. What happens when we type a url in the browser?**
+## 7. **What happens when we type a url in the browser?**
 When you type a URL (e.g., https://www.example.com) into your browser's address bar and hit Enter, a series of steps occur behind the scenes to load the webpage. Here's a step-by-step breakdown:
 
 1. `URL Parsing`: The browser parses the URL to extract components like the protocol (e.g., HTTPS), domain (e.g., www.example.com), path (e.g., /page), and any parameters.
@@ -139,6 +139,7 @@ When you type a URL (e.g., https://www.example.com) into your browser's address 
 
 
 7. `Response Handling`: The browser receives the response, parses the HTML, and starts rendering the page. It fetches additional resources (CSS, JS, images) in parallel via more requests, building the DOM (Document Object Model) and applying styles/scripts.
-Rendering and Interaction: The browser renders the page visually, executes JavaScript, and handles user interactions. Caching may store resources for faster future loads.
+
+8. `Rendering and Interaction`: The browser renders the page visually, executes JavaScript, and handles user interactions. Caching may store resources for faster future loads.
 
 This process typically takes milliseconds but can vary based on network speed, server load, and redirects.
